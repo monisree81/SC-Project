@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Salary Management Dashboard</title>
+  <script>
+  // Show welcome screen for 3 seconds then go to login
+  window.onload = function () {
+    setTimeout(() => {
+      document.getElementById("welcome-screen").classList.add("hidden");
+      document.getElementById("login-screen").classList.remove("hidden");
+    }, 3000);
+  };
+  function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    if (username === "admin" && password === "password") {
+      document.getElementById("login-screen").classList.add("hidden");
+      document.getElementById("dashboard").classList.remove("hidden");
+    } else {
+      document.getElementById("login-error").innerText = "Invalid credentials.";
+    }
+  }
+
+  function showPage(id) {
+    const pages = document.querySelectorAll(".page");
+    pages.forEach(page => page.classList.add("hidden"));
+    document.getElementById(id).classList.remove("hidden");
+  }
+
+  function generatePayslip() {
+    // Placeholder logic for payslip generation
+    alert("Payslip generation logic goes here.");
+  }
+</script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(-45deg, #8ec5fc, #e0c3fc, #f9f9f9, #a1c4fd);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+      color: #002244;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1, h2 {
+      color: #003d80;
+      margin-bottom: 20px;
+    }
+
+    .gradient-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: linear-gradient(270deg, #ff6ec4, #7873f5, #42e695);
+      background-size: 600% 600%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientFlow 5s ease infinite;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .page {
+      background: #ffffffcc;
+      padding: 30px;
+      margin: 20px auto;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 900px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #0057b7;
+    }
+
+    button {
+      background-color: #0057b7;
+      color: #ffffff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      margin: 10px 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #003d80;
+    }
+
+    .nav {
+      margin: 30px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #0057b7;
+      color: white;
+    }
+
+    #login-error {
+      color: red;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 20px;
+      }
+
+      input, button {
+        width: 100%;
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="welcome-screen" class="screen">
+  <div class="page" style="max-width: 500px; text-align: center;">
+    <h1 class="gradient-title">Welcome to the Salary Management System</h1>
+    <p style="font-size: 1.2rem; margin-top: 20px;">Hello Users...</p>
+  </div>
+</div>
+
+  <div id="login-screen" class="screen">
+    <div class="page" style="max-width: 400px;">
+      <h1 class="gradient-title">Salary Management System</h1>
+      <h2>Login</h2>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+      <p id="login-error"></p>
+    </div>
+  </div>
+
+  <div id="dashboard" class="screen hidden">
+    <h1>Salary Management Dashboard</h1>
+
+    <div class="nav">
+      <button onclick="showPage('employee')">Employee Details</button>
+      <button onclick="showPage('salary')">Salary Calculator</button>
+      <button onclick="showPage('tax')">Tax Calculator</button>
+      <button onclick="showPage('payslip')">Payslip Generator</button>
+    </div>
+
+    <div id="employee" class="page">
+      <h2>Employee Details</h2>
+      <form id="employeeForm">
+        <input type="text" id="empName" placeholder="Name" required />
+        <input type="number" id="workingHours" placeholder="Working Hours" required />
+        <input type="number" id="salaryPerHour" placeholder="Salary Per Hour" required />
+        <input type="number" id="taxPercent" placeholder="Tax %" required />
+        <button type="submit">Add Employee</button>
+      </form>
+      <table id="employeeTable"></table>
+    </div>
+
+    <div id="salary" class="page hidden">
+      <h2>Salary Calculator</h2>
+      <div id="salaryOutput"></div>
+    </div>
+
+    <div id="tax" class="page hidden">
+      <h2>Tax Calculator</h2>
+      <div id="taxOutput"></div>
+    </div>
+
+    <div id="payslip" class="page hidden">
+      <h2>Generate Payslip</h2>
+      <button onclick="generatePayslip()">Download Payslips as PDF</button>
+      <div id="payslipOutput"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
